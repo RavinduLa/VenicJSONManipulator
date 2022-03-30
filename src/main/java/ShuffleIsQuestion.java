@@ -14,7 +14,7 @@ import java.util.List;
 public class ShuffleIsQuestion {
     public static void shuffle() throws IOException, ParseException {
         System.out.println("Initiating");
-        FileWriter myWriter = new FileWriter("src/venic-dataset-v4-isQuestion.json");
+        FileWriter myWriter = new FileWriter("src/venic-dataset-v5-isQuestion.json");
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader("src/venic-dataset-temp-isQuestion.json"));
         JSONArray jsonArray = (JSONArray) obj;

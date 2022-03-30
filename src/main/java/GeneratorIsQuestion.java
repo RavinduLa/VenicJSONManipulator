@@ -8,17 +8,21 @@ import java.util.Scanner;
 public class GeneratorIsQuestion {
     public static void generate() throws IOException {
         System.out.println("Creating scanner, reader, writer and file objects");
-        File questionFile = new File("src/questions.txt");
+        File questionFile = new File("src/paq-4mil.txt");
         File commandFile = new File("src/commands.txt");
+        File sentenceFile = new File("src/wikisent-2mil.txt");
+        File commentFile = new File("src/comments.txt");
         FileWriter myWriter = new FileWriter("src/venic-dataset-temp-isQuestion.json");
         Scanner questionReader = new Scanner(questionFile);
         Scanner commandReader = new Scanner(commandFile);
+        Scanner sentenceReader = new Scanner(sentenceFile);
+        Scanner commentReader = new Scanner(commentFile);
 
         System.out.println("Created scanner, reader, writer and file objects");
 
         JSONObject jsonObject = new JSONObject();
 
-        System.out.println("Starting writing...");
+        System.out.println("Starting writing is Question...");
         myWriter.write("[");
         System.out.println("Writing Questions");
         while (questionReader.hasNext()){
@@ -36,11 +40,30 @@ public class GeneratorIsQuestion {
             myWriter.write(jsonObject.toJSONString());
             myWriter.write(",");
         }
+        System.out.println("Writing sentences");
+        while (sentenceReader.hasNext()){
+            String data = sentenceReader.nextLine();
+            jsonObject.put("input", data);
+            jsonObject.put("isQuestion" , 0);
+            myWriter.write(jsonObject.toJSONString());
+            myWriter.write(",");
+        }
+        System.out.println("Writing comments");
+        while (commentReader.hasNext()){
+            String data = commentReader.nextLine();
+            jsonObject.put("input", data);
+            jsonObject.put("isQuestion" , 0);
+            myWriter.write(jsonObject.toJSONString());
+            myWriter.write(",");
+        }
         myWriter.write("]");
 
         myWriter.close();
         commandReader.close();
         questionReader.close();
-        System.out.println("Process finished");
+        sentenceReader.close();
+        commentReader.close();
+
+        System.out.println("Wrote is Question set.");
     }
 }
